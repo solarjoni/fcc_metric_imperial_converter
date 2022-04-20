@@ -86,16 +86,16 @@ function ConvertHandler() {
       result = (initNum / galToL)
     }
 
-    if(initUnit === 'kg' || initUnit === 'KG') {
-      result = (initNum / lbsToKg)
-    } else if (initUnit ==='lbs' || initUnit === 'lbs') {
+    if(initUnit === 'lbs' || initUnit === 'LBS') {
       result = (initNum * lbsToKg)
+    } else if (initUnit ==='kg' || initUnit === 'KG') {
+      result = (initNum / lbsToKg)
     }
 
-    if(initUnit === 'km' || initUnit === 'KM') {
-      result = (initNum / miToKm)
-    } else if (initUnit ==='mi' || initUnit === 'MI') {
+    if(initUnit === 'mi' || initUnit === 'MI') {
       result = (initNum * miToKm)
+    } else if (initUnit ==='km' || initUnit === 'KM') {
+      result = (initNum / miToKm)
     }
 
     return result;
