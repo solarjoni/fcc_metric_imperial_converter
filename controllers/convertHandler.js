@@ -21,7 +21,7 @@ function ConvertHandler() {
     if(result.toString().includes('/')) {
       let values = result.toString().split('/')
       if(values.length != 2) {
-        return "Invalid Number Input"
+        return "invalid number"
       }
 
     let num1 = parseFloat(values[0])
@@ -48,7 +48,7 @@ function ConvertHandler() {
 
     
     if(!validUnits.includes(result)) {
-      return 'Invalid Unit Input'
+      return 'invalid unit'
     }
     return result;
   };
@@ -57,7 +57,7 @@ function ConvertHandler() {
     let result;
 
     if(initUnit === 'gal' || initUnit === 'GAL') {
-      result = 'l'
+      result = 'L'
     } else if (initUnit ==='l' || initUnit === 'L') {
       result = 'gal'
     }
