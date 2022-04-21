@@ -28,14 +28,14 @@ function ConvertHandler() {
     let num2 = parseFloat(values[1])
     // console.log('num1: ' + num1, 'num2: ' + num2)
 
-    result = parseFloat(num1 / num2).toFixed(5)
+    result = parseFloat(num1 / num2).toFixed(1)
   }
 
     if(isNaN(result)) {
       return 'Input is not a Number'
     }
     
-    return result;
+    return parseFloat(result);
   };
   
   this.getUnit = function(input) {
