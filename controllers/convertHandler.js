@@ -45,12 +45,7 @@ function ConvertHandler() {
       result = input.match(inputRegex)[0] 
     }
 
-    if(result === 'l') {
-      result = 'L'
-    }
-
     // console.log('Unit: ' + result)
-
     
     if(!validUnits.includes(result)) {
       return 'invalid unit'
