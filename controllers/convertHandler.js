@@ -35,7 +35,7 @@ function ConvertHandler() {
       return 'Input is not a Number'
     }
     
-    return result;
+    return parseFloat(result);
   };
   
   this.getUnit = function(input) {
