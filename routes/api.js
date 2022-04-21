@@ -27,9 +27,9 @@ module.exports = function (app) {
 
       let responseObject = {}
       responseObject['initNum'] = initNum
-      if (initUnit === 'l') {
+      if (initUnit === 'l' || initUnit === 'L') {
       responseObject['initUnit'] = 'L'
-      } else { responseObject['initUnit'] = initUnit }
+      } else { responseObject['initUnit'] = initUnit.toLowerCase() }
       responseObject['returnNum'] = returnNum
       responseObject['returnUnit'] = returnUnit
       responseObject['string'] = toString
