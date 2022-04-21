@@ -29,7 +29,7 @@ suite('Functional Tests', function() {
                 .get('/api/convert')
                 .query({input: '32g'})
                 .end(function(err, res) {
-                    assert.equal(res.body, 'Invalid Unit Input')
+                    assert.equal(res.body, 'invalid unit')
                 })
             done();
           });
@@ -39,7 +39,7 @@ suite('Functional Tests', function() {
             .get('/api/convert')
             .query({input: '3/7.2/4kg'})
             .end(function(err, res) {
-                assert.equal(res.body, 'Invalid Number Input')
+                assert.equal(res.body, 'invalid number')
             })
             done();
           });  
@@ -49,7 +49,7 @@ suite('Functional Tests', function() {
             .get('/api/convert')
             .query({input: '3/7.2/4kilomegram'})
             .end(function(err, res) {
-                assert.equal(res.body, 'Invalid Number and Unit Input')
+                assert.equal(res.body, 'invalid number and unit')
             })
             done();
           });

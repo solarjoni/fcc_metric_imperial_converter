@@ -31,7 +31,7 @@ suite('Unit Tests', function(){
       
           test('Invalid Input (double fraction)', function(done) {
             let input = '3/7.2/4L'
-            assert.equal(convertHandler.getNum(input), 'Invalid Number Input')
+            assert.equal(convertHandler.getNum(input), 'invalid number')
             done();
           });
       
@@ -55,7 +55,7 @@ suite('Unit Tests', function(){
       
           test('Invalid Unit Input', function(done) {
             let input = '32g'
-            assert.equal(convertHandler.getUnit(input), 'Invalid Unit Input')
+            assert.equal(convertHandler.getUnit(input), 'invalid unit')
             done();
           });  
       
@@ -65,7 +65,7 @@ suite('Unit Tests', function(){
       
           test('For Each Valid Unit Inputs', function(done) {
             let input = ['gal','l','mi','km','lbs','kg'];
-            let expect = ['l','gal','km','mi','kg','lbs'];
+            let expect = ['L','gal','km','mi','kg','lbs'];
             input.forEach(function(ele, i) {
               assert.equal(convertHandler.getReturnUnit(ele), expect[i]);
             });
