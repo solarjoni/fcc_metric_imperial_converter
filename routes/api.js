@@ -24,6 +24,25 @@ module.exports = function (app) {
       let returnNum = convertHandler.convert(initNum, initUnit)
       let returnUnit = convertHandler.getReturnUnit(initUnit)
       let toString = convertHandler.getString(initNum, initUnit, returnNum, returnUnit)
+
+      let responseObject = {}
+      responseObject['initNum'] = initNum
+      responseObject['initUnit'] = initUnit
+      responseObject['returnNum'] = returnNum
+      responseObject['returnUnit'] = returnUnit
+      responseObject['string'] = toString
+
+      if((initNum === 'invalid number' || initNum === 'Input is not a Number') && initUnit === 'invalid unit') {
+        res.json('invalid number and unit')
+      }
+      if(initNum === "invalid number") {
+        res.json('invalid number')
+      }
+      if(initUnit === 'invalid unit') {
+        res.json('invalid unit')
+      }
+
+      res.json(responseObject)
     })
 
 };

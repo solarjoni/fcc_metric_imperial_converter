@@ -1,56 +1,111 @@
-function numberStringSplitter(input) {
-  let number = input.match(/[.\d\/]+/g) || ["1"]
-  let string = input.match(/[a-zA-Z]+/g)[0]
-
-  return [number[0], string]
-}
-
-function checkDiv(possibleFraction) {
-  // 1/4/3 return false
-  // 13 return ["13"]
-  // 1/4 return ["1", "4"]
-  let nums = possibleFraction.split("/")
-  if (nums.length > 2) {
-    return false
-  }
-  return nums
-}
+let validUnits = ['gal','l','mi','km','lbs','kg','GAL','L','MI','KM','LBS','KG'];
+let inputRegex = /[a-z]+|[^a-z]+/gi
 
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    let result = numberStringSplitter(input)[0];
-    let nums = checkDiv(result)
-    if (!nums) {
-      return undefined
+    // console.log('Input: ' + input)
+    
+    let result = input.match(inputRegex)[0];
+    // console.log('Bare Number: ' + result)
+    let numberRegex = /\d/
+    
+    if(validUnits.includes(result)) { // If no Number Input provided
+      result = '1'
+    } 
+    if(numberRegex.test(result) === false) {
+      return 'Input is not a Number'
     }
+    // console.log('Number: ' + result)
+    
+    if(result.toString().includes('/')) {
+      let values = result.toString().split('/')
+      if(values.length != 2) {
+        return "invalid number"
+      }
 
-    let num1 = nums[0]
-    let num2 = nums[1] || "1"
+    let num1 = parseFloat(values[0])
+    let num2 = parseFloat(values[1])
+    // console.log('num1: ' + num1, 'num2: ' + num2)
 
-    result = parseFloat(num1) / parseFloat(num2)
+    result = parseFloat(num1 / num2)
+  }
 
-    if(isNaN(num1) || isNaN(num2)) {
-      return undefined
+    if(isNaN(result)) {
+      return 'Input is not a Number'
     }
     
     return result;
   };
   
   this.getUnit = function(input) {
-    let result = numberStringSplitter(input)[1];
+    let result = input.match(inputRegex)[1]
+
+    if(!result) { // If no Number Input provided, fallback to [0] index, which will be Unit 
+      result = input.match(inputRegex)[0] 
+    }
+    // console.log('Unit: ' + result)
+
     
+    if(!validUnits.includes(result)) {
+      return 'invalid unit'
+    }
     return result;
   };
   
   this.getReturnUnit = function(initUnit) {
     let result;
+
+    if(initUnit === 'gal' || initUnit === 'GAL') {
+      result = 'L'
+    } else if (initUnit ==='l' || initUnit === 'L') {
+      result = 'gal'
+    }
+
+    if(initUnit === 'kg' || initUnit === 'KG') {
+      result = 'lbs'
+    } else if (initUnit ==='lbs' || initUnit === 'LBS') {
+      result = 'kg'
+    }
+
+    if(initUnit === 'km' || initUnit === 'KM') {
+      result = 'mi'
+    } else if (initUnit ==='mi' || initUnit === 'MI') {
+      result = 'km'
+    }
     
     return result;
   };
 
   this.spellOutUnit = function(unit) {
     let result;
+
+    switch (unit) {
+      case 'gal':
+      case 'GAL':
+        result = 'gallon(s)'
+        break
+      case 'l':
+      case 'L':
+        result = 'litre(s)'
+        break
+      case 'lbs':
+      case 'LBS':
+        result = 'pound(s)'
+        break
+      case 'kg':
+      case 'KG':
+        result = 'kilogram(s)'
+        break
+      case 'mi':
+      case 'MI':
+        result = 'mile(s)'
+        break
+      case 'km':
+      case 'KM':
+        result = 'kilometer(s)'
+        break
+    }
     
     return result;
   };
@@ -61,11 +116,31 @@ function ConvertHandler() {
     const miToKm = 1.60934;
     let result;
     
-    return result;
+    if(initUnit === 'gal' || initUnit === 'GAL') {
+      result = (initNum * galToL).toFixed(5)
+    } else if (initUnit ==='l' || initUnit === 'L') {
+      result = (initNum / galToL).toFixed(5)
+    }
+
+    if(initUnit === 'lbs' || initUnit === 'LBS') {
+      result = (initNum * lbsToKg).toFixed(5)
+    } else if (initUnit ==='kg' || initUnit === 'KG') {
+      result = (initNum / lbsToKg).toFixed(5)
+    }
+
+    if(initUnit === 'mi' || initUnit === 'MI') {
+      result = (initNum * miToKm).toFixed(5)
+    } else if (initUnit ==='km' || initUnit === 'KM') {
+      result = (initNum / miToKm).toFixed(5)
+    }
+
+    return parseFloat(result); //parseFloat(result)
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
     let result;
+
+    result = initNum + ' ' + this.spellOutUnit(initUnit) + ' converts to ' + returnNum + ' ' + this.spellOutUnit(returnUnit)
     
     return result;
   };
