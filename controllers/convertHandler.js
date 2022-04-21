@@ -28,7 +28,7 @@ function ConvertHandler() {
     let num2 = parseFloat(values[1])
     // console.log('num1: ' + num1, 'num2: ' + num2)
 
-    result = parseFloat(num1 / num2)
+    result = parseFloat(num1 / num2).toFixed(5)
   }
 
     if(isNaN(result)) {

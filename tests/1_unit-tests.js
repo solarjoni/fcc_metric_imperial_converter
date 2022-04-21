@@ -19,13 +19,13 @@ suite('Unit Tests', function(){
       
           test('Fractional Input', function(done) {
             let input = '2/3lbs'
-            assert.equal(convertHandler.getNum(input), 2/3)
+            assert.equal(convertHandler.getNum(input), 0.66667)
             done();
           });
       
           test('Fractional Input w/ Decimal', function(done) {
             let input = '2.3/3.7lbs'
-            assert.equal(convertHandler.getNum(input), 2.3/3.7)
+            assert.equal(convertHandler.getNum(input), 0.62162)
             done();
           });
       
