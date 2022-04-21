@@ -44,6 +44,11 @@ function ConvertHandler() {
     if(!result) { // If no Number Input provided, fallback to [0] index, which will be Unit 
       result = input.match(inputRegex)[0] 
     }
+
+    if(result === 'l') {
+      result = 'L'
+    }
+
     // console.log('Unit: ' + result)
 
     
