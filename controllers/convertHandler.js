@@ -1,46 +1,55 @@
-function numberStringSplitter(input) {
-  let number = input.match(/[.\d\/]+/g) || ["1"]
-  let string = input.match(/[a-zA-Z]+/g)[0]
-  console.log(number, string)
-
-  return [number[0], string]
-}
-
-function checkDiv(possibleFraction) {
-  // 1/4/3 return false
-  // 13 return ["13"]
-  // 1/4 return ["1", "4"]
-  let nums = possibleFraction.split("/")
-  if (nums.length > 2) {
-    return false
-  }
-  return nums
-}
+let validUnits = ['gal','l','mi','km','lbs','kg','GAL','L','MI','KM','LBS','KG'];
+let inputRegex = /[a-z]+|[^a-z]+/gi
 
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    let result = numberStringSplitter(input)[0];
-    let nums = checkDiv(result)
-    if (!nums) {
-      return undefined
+    console.log('Input: ' + input)
+    
+    let result = input.match(inputRegex)[0];
+    console.log('Bare Number: ' + result)
+    let numberRegex = /\d/
+    
+    if(validUnits.includes(result)) {
+      result = '1'
+    } 
+    if(numberRegex.test(result) === false) {
+      return 'Input is not a Number'
     }
+    console.log('Number: ' + result)
+    
+    if(result.toString().includes('/')) {
+      let values = result.toString().split('/')
+      if(values.length != 2) {
+        return "Invalid Number Input"
+      }
 
-    let num1 = nums[0]
-    let num2 = nums[1] || "1"
+    let num1 = parseFloat(values[0])
+    let num2 = parseFloat(values[1])
+    console.log('num1: ' + num1, 'num2: ' + num2)
 
-    result = parseFloat(num1) / parseFloat(num2)
+    result = parseFloat(num1 / num2)
+  }
 
-    if(isNaN(num1) || isNaN(num2)) {
-      return undefined
+    if(isNaN(result)) {
+      return 'Input is not a Number'
     }
     
     return result;
   };
   
   this.getUnit = function(input) {
-    let result = numberStringSplitter(input)[1];
+    let result = input.match(inputRegex)[1]
+
+    if(!result) {
+      result = input.match(inputRegex)[0]
+    }
+    console.log('Unit: ' + result)
+
     
+    if(!validUnits.includes(result)) {
+      return 'Invalid Unit Input'
+    }
     return result;
   };
   

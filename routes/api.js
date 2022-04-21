@@ -32,6 +32,16 @@ module.exports = function (app) {
       responseObject['returnUnit'] = returnUnit
       responseObject['string'] = toString
 
+      if((initNum === 'Invalid Number Input' || initNum === 'Input is not a Number') && initUnit === 'Invalid Unit Input') {
+        res.json('Invalid Number and Unit Input')
+      }
+      if(initNum === "Invalid Number Input") {
+        res.json('Invalid Number Input')
+      }
+      if(initUnit === 'Invalid Unit Input') {
+        res.json('Invalid Unit Input')
+      }
+
       res.json(responseObject)
     })
 
