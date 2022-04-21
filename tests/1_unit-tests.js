@@ -12,18 +12,21 @@ suite('Unit Tests', function(){
             done()
         })
         test('Decimal Input', function(done) {
-
-            //done();
+          let input = '3.2mi'
+          assert.equal(convertHandler.getNum(input), 3.2)
+            done()
           });
       
           test('Fractional Input', function(done) {
-      
-            //done();
+            let input = '2/3lbs'
+            assert.equal(convertHandler.getNum(input), 2/3)
+            done();
           });
       
           test('Fractional Input w/ Decimal', function(done) {
-      
-            //done();
+            let input = '2.3/3.7lbs'
+            assert.equal(convertHandler.getNum(input), 2.3/3.7)
+            done();
           });
       
           test('Invalid Input (double fraction)', function(done) {
@@ -33,8 +36,9 @@ suite('Unit Tests', function(){
           });
       
           test('No Numerical Input', function(done) {
-      
-            //done();
+            let input = 'mi'
+            assert.equal(convertHandler.getNum(input), 1)
+            done();
           }); 
       
         });
@@ -74,9 +78,13 @@ suite('Unit Tests', function(){
       
           test('For Each Valid Unit Inputs', function(done) {
             //see above example for hint
-            // done();
+            let input = ['gal','l','mi','km','lbs','kg'];
+            let expect = ['gallon(s)','litre(s)','mile(s)', 'kilometer(s)','pound(s)', 'kilogram(s)'];
+            input.forEach(function(ele, i) {
+              assert.equal(convertHandler.spellOutUnit(ele), expect[i]);
+            })
+            done();
           });
-      
         });
       
         suite('Function convertHandler.convert(num, unit)', function() {

@@ -4,19 +4,19 @@ let inputRegex = /[a-z]+|[^a-z]+/gi
 function ConvertHandler() {
   
   this.getNum = function(input) {
-    console.log('Input: ' + input)
+    // console.log('Input: ' + input)
     
     let result = input.match(inputRegex)[0];
-    console.log('Bare Number: ' + result)
+    // console.log('Bare Number: ' + result)
     let numberRegex = /\d/
     
-    if(validUnits.includes(result)) {
+    if(validUnits.includes(result)) { // If no Number Input provided
       result = '1'
     } 
     if(numberRegex.test(result) === false) {
       return 'Input is not a Number'
     }
-    console.log('Number: ' + result)
+    // console.log('Number: ' + result)
     
     if(result.toString().includes('/')) {
       let values = result.toString().split('/')
@@ -26,7 +26,7 @@ function ConvertHandler() {
 
     let num1 = parseFloat(values[0])
     let num2 = parseFloat(values[1])
-    console.log('num1: ' + num1, 'num2: ' + num2)
+    // console.log('num1: ' + num1, 'num2: ' + num2)
 
     result = parseFloat(num1 / num2)
   }
@@ -41,10 +41,10 @@ function ConvertHandler() {
   this.getUnit = function(input) {
     let result = input.match(inputRegex)[1]
 
-    if(!result) {
-      result = input.match(inputRegex)[0]
+    if(!result) { // If no Number Input provided, fallback to [0] index, which will be Unit 
+      result = input.match(inputRegex)[0] 
     }
-    console.log('Unit: ' + result)
+    // console.log('Unit: ' + result)
 
     
     if(!validUnits.includes(result)) {
@@ -79,6 +79,33 @@ function ConvertHandler() {
 
   this.spellOutUnit = function(unit) {
     let result;
+
+    switch (unit) {
+      case 'gal':
+      case 'GAL':
+        result = 'gallon(s)'
+        break
+      case 'l':
+      case 'L':
+        result = 'litre(s)'
+        break
+      case 'lbs':
+      case 'LBS':
+        result = 'pound(s)'
+        break
+      case 'kg':
+      case 'KG':
+        result = 'kilogram(s)'
+        break
+      case 'mi':
+      case 'MI':
+        result = 'mile(s)'
+        break
+      case 'km':
+      case 'KM':
+        result = 'kilometer(s)'
+        break
+    }
     
     return result;
   };
@@ -112,6 +139,8 @@ function ConvertHandler() {
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
     let result;
+
+    result = initNum + ' ' + this.spellOutUnit(initUnit) + ' converts to ' + returnNum + ' ' + this.spellOutUnit(returnUnit)
     
     return result;
   };
